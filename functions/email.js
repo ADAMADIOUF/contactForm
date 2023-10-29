@@ -26,12 +26,11 @@ exports.handler = async (event, context, cb) => {
   })
 
   const mailOptions = {
-    from: email,
+    from: process.env.EMAIL_EMAIL, // Your email
     to: process.env.EMAIL_EMAIL, // Your email where you want to receive the emails
     subject: `Contact form submission from ${name}: ${subject}`,
-    text: message,
+    text: `Message from: ${email}\n\n${message}`,
   }
-
   try {
     await transporter.sendMail(mailOptions)
     return {

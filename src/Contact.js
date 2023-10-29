@@ -4,7 +4,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject:"",
+    subject: '',
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -29,14 +29,17 @@ const Contact = () => {
           name: '',
           email: '',
           message: '',
-          subject:""
+          subject: '',
         })
+        setTimeout(() => setMessage(''), 3000) // Clear message after 3 seconds
       } else {
         const errorData = await response.json()
         setMessage(`Failed to send message. ${errorData.message || ''}`)
+        setTimeout(() => setMessage(''), 3000) // Clear message after 3 seconds
       }
     } catch (error) {
       setMessage('An error occurred. Please try again.')
+      setTimeout(() => setMessage(''), 3000) // Clear message after 3 seconds
     }
 
     setIsSubmitting(false)
