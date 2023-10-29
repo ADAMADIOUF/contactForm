@@ -4,6 +4,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject:"",
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -14,7 +15,7 @@ const Contact = () => {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('/.netlify/functions/contact', {
+      const response = await fetch('/.netlify/functions/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,8 +27,9 @@ const Contact = () => {
         setMessage('Message sent successfully!')
         setFormData({
           name: '',
-          emailName: '',
+          email: '',
           message: '',
+          subject:""
         })
       } else {
         const errorData = await response.json()
@@ -53,9 +55,18 @@ const Contact = () => {
         <input
           type='email'
           placeholder='Email'
-          value={formData.emailName}
+          value={formData.email}
           onChange={(e) =>
-            setFormData({ ...formData, emailName: e.target.value })
+            setFormData({ ...formData, email: e.target.value })
+          }
+          required
+        />
+        <input
+          type='text'
+          placeholder='subject'
+          value={formData.subject}
+          onChange={(e) =>
+            setFormData({ ...formData, subject: e.target.value })
           }
           required
         />
